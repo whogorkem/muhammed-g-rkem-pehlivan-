@@ -1,0 +1,111 @@
+   /* --- Global Reset & Base --- */
+        body { 
+            background-color: #050505; 
+            color: #e2e8f0; 
+            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Background Canvas --- */
+        #particle-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        /* --- Glassmorphism Utils --- */
+        .glass { 
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+        
+        .glass-card { 
+            background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .glass-card:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(99, 102, 241, 0.4); 
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.25); 
+        }
+
+        /* --- Text & Gradients --- */
+        .text-gradient { 
+            background: linear-gradient(to right, #6366f1, #ec4899, #8b5cf6); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+            background-size: 200% auto; 
+            animation: gradientMove 6s linear infinite; 
+        }
+
+        /* --- Buttons --- */
+        .btn-glow {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .btn-glow::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        .btn-glow:hover::before { left: 100%; }
+
+        /* --- Navigation --- */
+        .nav-link { position: relative; font-weight: 500; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background: linear-gradient(to right, #6366f1, #ec4899);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* --- Animations --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Mouse Scroll Animation */
+        .mouse-scroll {
+            width: 26px; height: 42px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 25px;
+            position: relative;
+        }
+        .mouse-scroll::before {
+            content: ''; position: absolute;
+            width: 4px; height: 4px; background: #fff;
+            left: 50%; transform: translateX(-50%); top: 6px;
+            border-radius: 50%;
+            animation: mouse-wheel 2s infinite;
+        }
+        @keyframes mouse-wheel {
+            0% { opacity: 1; top: 6px; }
+            100% { opacity: 0; top: 24px; }
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open { transform: translateX(0); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+        
+        main { flex: 1; }

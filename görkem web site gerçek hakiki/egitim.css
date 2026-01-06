@@ -1,0 +1,79 @@
+  /* Temel Ayarlar */
+        body { 
+            background-color: #050505; 
+            color: #e2e8f0; 
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Canvas (Arka Plan) */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* En arkada */
+            pointer-events: none; /* Tıklamaları engellememesi için */
+        }
+
+        /* Glassmorphism Kart Efekti */
+        .glass-card { 
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: all 0.4s ease; 
+        }
+        .glass-card:hover { 
+            transform: translateY(-10px); 
+            border-color: rgba(99, 102, 241, 0.5); 
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3); 
+        }
+
+        /* Gradyan Yazı */
+        .text-gradient { 
+            background: linear-gradient(to right, #6366f1, #ec4899, #8b5cf6); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+            background-size: 200% auto; 
+            animation: gradientMove 5s linear infinite; 
+        }
+
+        /* Eğitim Timeline Çizgisi ve Yapısı */
+        .timeline-container { 
+            position: relative; 
+            padding-bottom: 3rem;
+        }
+        .timeline-line { 
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            height: 100%; 
+            width: 2px; 
+            background: linear-gradient(to bottom, #6366f1, #ec4899); 
+            z-index: 0; 
+            opacity: 0.5;
+        }
+        
+        /* Animasyonlu Giriş */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobil Uyumluluk */
+        @media(max-width: 768px) { 
+            .timeline-line { left: 20px; transform: translateX(0); } 
+            .timeline-item-left { border-left: 4px solid #6366f1; padding-left: 1.5rem; }
+            .timeline-item-right { border-left: 4px solid #ec4899; padding-left: 1.5rem; }
+        }

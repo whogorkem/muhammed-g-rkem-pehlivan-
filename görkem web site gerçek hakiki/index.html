@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammet görkem Pehlivan | Bilgisayar Programcısı</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    },
+                    colors: {
+                        primary: '#6366f1', // Indigo 500
+                        secondary: '#ec4899', // Pink 500
+                        accent: '#8b5cf6', // Violet 500
+                        dark: '#0f172a',
+                    },
+                    animation: {
+                        'gradientMove': 'gradientMove 6s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'scroll': 'scroll 20s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        gradientMove: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+                            '50%': { opacity: 0.3, transform: 'scale(1.1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- Canvas Arka Plan -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 glass transition-all duration-300 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-bold text-white font-display tracking-tight z-50 group">
+                Muhammet Görkem<span class="text-primary group-hover:text-secondary transition-colors duration-300">PEHLİVAN</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-10">
+                <ul class="flex gap-8 text-sm text-gray-400">
+                    <li><a href="#" class="nav-link text-white">Anasayfa</a></li>
+                    <li><a href="hakkımda.html" class="nav-link hover:text-white transition-colors">Hakkımda</a></li>
+                    <li><a href="egitim.html" class="nav-link hover:text-white transition-colors">Eğitim</a></li>
+                    <li><a href="iletişim.html" class="nav-link hover:text-white transition-colors">İletişim</a></li>
+                </ul>
+                
+               
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-white text-xl z-50 p-2 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 text-2xl font-display font-bold z-40 md:hidden">
+            <a href="#" class="text-primary">Anasayfa</a>
+            <a href="hakkımda.html" class="text-white hover:text-primary transition">Hakkımda</a>
+            <a href="egitim.html" class="text-white hover:text-primary transition">egitimim</a>
+            <a href="iletişim.html" class="text-white hover:text-primary transition">İletişim</a>
+            <div class="w-12 h-1 bg-white/10 rounded-full my-4"></div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+            <div class="container mx-auto max-w-7xl flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+                
+                <!-- Sol: Metin -->
+                <div class="lg:w-1/2 text-center lg:text-left reveal z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-primary text-xs font-bold tracking-wider uppercase">Freelance Projelere Açık</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] font-display">
+                        Fikirleri <br>
+                        <span class="text-gradient">Kodluyorum.</span>
+                    </h1>
+                    
+                    <!-- Typewriter -->
+                    <div class="text-xl lg:text-2xl text-gray-400 mb-8 font-light flex items-center justify-center lg:justify-start gap-2">
+                        <span>Ben bir</span>
+                        <span id="typewriter-text" class="text-white font-medium border-r-2 border-primary pr-1"></span>
+                    </div>
+
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Modern web teknolojileri ile kullanıcı dostu, estetik ve performanslı dijital deneyimler tasarlıyorum. Hayalinizdeki projeyi gerçeğe dönüştürmek için buradayım.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                        <a href="egitim.html" class="btn-glow px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:shadow-[0_0_30px_rgba(99,102,241,0.8)] hover:scale-105 transition duration-300">
+                            Eğitim hayatımı  Gör
+                        </a>
+                        <a href="iletişim.html" class="px-8 py-4 glass text-white font-bold rounded-full border border-white/10 hover:bg-white/10 hover:border-white/30 transition duration-300">
+                            
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sağ: Görsel / Avatar -->
+                <div class="lg:w-1/2 flex justify-center reveal delay-100 relative z-10">
+                    <!-- Arka Plan Glow Efekti -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/30 to-secondary/30 blur-[80px] rounded-full animate-pulse-glow"></div>
+                    
+                    <!-- Avatar Kartı -->
+                    <div class="relative w-72 h-72 lg:w-[500px] lg:h-[550px] animate-float">
+                         <!-- Dekoratif Elemanlar -->
+                         <div class="absolute -top-6 -right-6 w-20 h-20 glass rounded-2xl flex items-center justify-center animate-bounce delay-700 z-20 border border-white/10">
+                            <i class="fab fa-react text-4xl text-cyan-400"></i>
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 w-20 h-20 glass rounded-2xl flex items-center justify-center animate-bounce z-20 border border-white/10">
+                            <i class="fab fa-js text-4xl text-yellow-400"></i>
+                        </div>
+
+                        <div class="w-full h-full glass-card rounded-[2rem] p-4 border border-white/10 overflow-hidden relative">
+                            <img src="WhatsApp Görsel 2025-12-14 saat 20.46.21_1443ff21.jpg" alt="Muhammed Selman" class="w-full h-full object-cover rounded-3xl opacity-90 hover:opacity-100 transition duration-700 hover:scale-105 filter grayscale hover:grayscale-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-60">
+                <span class="text-xs tracking-widest uppercase">Kaydır</span>
+                <div class="mouse-scroll"></div>
+            </div>
+        </section>
+
+        <!-- Stats / Güven Şeridi -->
+        <section class="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm relative z-20">
+            <div class="container mx-auto max-w-6xl py-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                    <div class="reveal">
+                        <h4 class="text-3xl md:text-4xl font-bold text-white mb-1">4+</h4>
+                        <p class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Yıl Deneyim</p>
+                    </div>
+                    <div class="reveal delay-100">
+                        <h4 class="text-3xl md:text-4xl font-bold text-white mb-1">5+</h4>
+                        <p class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Tamamlanan Proje</p>
+                    </div>
+                    <div class="reveal delay-200">
+                        <h4 class="text-3xl md:text-4xl font-bold text-white mb-1">10+</h4>
+                        <p class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Mutlu Müşteri</p>
+                    </div>
+                    <div class="reveal delay-300">
+                        <h4 class="text-3xl md:text-4xl font-bold text-white mb-1">24/7</h4>
+                        <p class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Destek</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Marquee (Kayan Yazı) -->
+        <div class="py-10 overflow-hidden relative z-10 opacity-60 hover:opacity-100 transition duration-500 mb-12">
+            <div class="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
+            <div class="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
+            
+            <div class="flex w-[200%] animate-scroll">
+                <!-- 1. Grup -->
+                <div class="flex justify-around w-1/2 text-4xl text-gray-500">
+                    <i class="fab fa-html5 hover:text-orange-500 transition"></i>
+                    <i class="fab fa-css3-alt hover:text-blue-500 transition"></i>
+                    <i class="fab fa-js hover:text-yellow-400 transition"></i>
+                    <i class="fab fa-react hover:text-cyan-400 transition"></i>
+                    <i class="fab fa-node hover:text-green-500 transition"></i>
+                    <i class="fab fa-python hover:text-blue-400 transition"></i>
+                    <i class="fab fa-git-alt hover:text-red-500 transition"></i>
+                    <i class="fab fa-sass hover:text-pink-400 transition"></i>
+                </div>
+                <!-- 2. Grup (Döngü için tekrar) -->
+                <div class="flex justify-around w-1/2 text-4xl text-gray-500">
+                    <i class="fab fa-html5 hover:text-orange-500 transition"></i>
+                    <i class="fab fa-css3-alt hover:text-blue-500 transition"></i>
+                    <i class="fab fa-js hover:text-yellow-400 transition"></i>
+                    <i class="fab fa-react hover:text-cyan-400 transition"></i>
+                    <i class="fab fa-node hover:text-green-500 transition"></i>
+                    <i class="fab fa-python hover:text-blue-400 transition"></i>
+                    <i class="fab fa-git-alt hover:text-red-500 transition"></i>
+                    <i class="fab fa-sass hover:text-pink-400 transition"></i>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 bg-black/60 backdrop-blur-md relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <!-- Sol -->
+                <div class="text-center md:text-left">
+                    <a href="#" class="text-2xl font-bold text-white font-display tracking-tight mb-2 block">
+                        Muhammet Görkem <span class="text-primary">PEHLİVAN</span>
+                    </a>
+                    <p class="text-gray-500 text-sm max-w-xs">Dijital dünyada iz bırakan çözümler üretiyorum.</p>
+                </div>
+
+                <!-- Orta -->
+                <div class="flex gap-8 text-sm font-medium text-gray-400">
+                    <a href="hakkımda.html" class="hover:text-white transition">Hakkımda</a>
+                    <a href="egitim.html" class="hover:text-white transition">Eğitim</a>
+                    <a href="iletişim.html" class="hover:text-white transition">İletişim</a>
+                </div>
+
+                <!-- Sağ -->
+                <div class="flex gap-4">
+                    <a href="www.linkedin.com/in/gorkem-undefined-288009391" class="w-10 h-10 glass rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#0077b5] transition-all transform hover:-translate-y-1"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/whogorkem" class="w-10 h-10 glass rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#333] transition-all transform hover:-translate-y-1"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/whogorkem_?igsh=ZXowN3h2ZW1tNGlz&utm_source=qr" class="w-10 h-10 glass rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-pink-500 hover:to-purple-500 transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="text-center mt-10 pt-6 border-t border-white/5 text-gray-600 text-xs">
+                &copy; 2025 Tüm Hakları Saklıdır. Designed & Coded by Muhammet Görkem PEHLİVAN.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="index.js"></script>
+</body>
+</html>
